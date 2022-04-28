@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Midtronics_First_Technical</string>
+    <string name="about_button">Item</string>
+    <string name="mohammad_momeni">Mohammad Momeni</string>
+    <string name="education_text">"I have master\'s of Computer Science from DePaul University, Software Development concentration and a lot of experience in Android App Development"
+    </string>
+    <string name="workHistory_text">"I worked five months as a Mobile Application Developer in a company called Resilience. I gained a lot of experience working there. The first three months I had to understand a written project by another developer and debug, revise and optimize it. The last two months I led the front-end team and trained the new interns by assigning them homeworks.\n \nI also was a Teaching Assistant during my master's program at DePaul. I used to grade the assignments and help students in their studies in case of having problems in their homeworks.\n\nI have developed nine Android applications which I did eight of them individually and one as a group project. I also developed an Android/iOS app during my internship program at Resilience." </string>
+    <string name="education">Education:</string>
+    <string name="work_history">Work History:</string>
+    <string name="just_a_profile_photo">Just a profile photo</string>
+    <string name="textview">TextView</string>
+    <string name="textview2">TextView</string>
+    <string name="textview3">TextView</string>
+    <string name="capital">Capital:</string>
+    <string name="population">Population:</string>
+    <string name="area">Area:</string>
+    <string name="region">Region:</string>
+    <string name="subregion">Subregion:</string>
+    <string name="textview4">TextView</string>
+    <string name="textview5">TextView</string>
+    <string name="textview6">TextView</string>
+    <string name="textview7">TextView</string>
+    <string name="textview8">TextView</string>
+    <string name="choose_a_country">Choose a country</string>
+    <string name="textview9">TextView</string>
+</resources>
