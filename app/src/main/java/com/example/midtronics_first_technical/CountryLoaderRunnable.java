@@ -45,7 +45,6 @@ public class CountryLoaderRunnable implements Runnable {
                 handleResults(null);
                 return;
             }
-
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
 
@@ -61,7 +60,6 @@ public class CountryLoaderRunnable implements Runnable {
         }
 
         handleResults(sb.toString());
-
     }
 
     private void handleResults(String s) {
@@ -76,14 +74,12 @@ public class CountryLoaderRunnable implements Runnable {
             return;
         }
 
-
-
         final Country countryObject = parseJSON(s, country);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (countryObject != null)
-                mainActivity.updateData1(countryObject);
+                mainActivity.startCountryActivity(countryObject);
             }
         });
     }

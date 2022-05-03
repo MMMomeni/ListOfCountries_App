@@ -4,40 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -51,59 +32,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        recyclerView = findViewById(R.id.recycler);
 
         setTitle(TITLEBAR);
 
-        String stringXmlContent;
-
         try {
-            stringXmlContent = getEventsFromAnXML();
-        } catch (XmlPullParserException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
+            getEventsFromAnXML();
+        } catch (XmlPullParserException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        updateRecycler();
+        refreshRecycler();
     }
 
 
-    private String getEventsFromAnXML()
-            throws XmlPullParserException, IOException
+    private void getEventsFromAnXML() throws XmlPullParserException, IOException
     {
-        StringBuffer stringBuffer = new StringBuffer();
         Resources res = getResources();
         XmlResourceParser xpp = res.getXml(R.xml.countries);
         xpp.next();
         int eventType = xpp.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT)
         {
-            if(eventType == XmlPullParser.START_DOCUMENT)
+            if(eventType == XmlPullParser.TEXT)
             {
-                stringBuffer.append("--- Start XML ---");
-            }
-            else if(eventType == XmlPullParser.START_TAG)
-            {
-                stringBuffer.append("\nSTART_TAG: "+xpp.getName());
-            }
-            else if(eventType == XmlPullParser.END_TAG)
-            {
-                stringBuffer.append("\nEND_TAG: "+xpp.getName());
-            }
-            else if(eventType == XmlPullParser.TEXT)
-            {
-                stringBuffer.append("\nTEXT: "+xpp.getText());
                 countryList.add(new Country(xpp.getText(),null,null,null,null,null));
             }
             eventType = xpp.next();
         }
-        stringBuffer.append("\n--- End XML ---");
-        return stringBuffer.toString();
     }
 
-    private void updateTitleNoteCount() {
+    private void CountriesCount() {
         setTitle(" (" + countryList.size() + ") " + TITLEBAR );
     }
 
@@ -120,28 +80,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void updateRecycler(){
-        recyclerView = findViewById(R.id.recycler);
+    public void refreshRecycler(){
         CountryAdapter vh = new CountryAdapter(countryList, this);
         recyclerView.setAdapter(vh);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        updateTitleNoteCount();
+        CountriesCount();
     }
 
 
-    public void updateData1(Country countryObject) {
-        //countryList.clear();
-        //countryList.addAll(cList);
-        //Collections.reverse(countryList);
-        //location.setText(countryList.get(0).getLocation());
-        //updateRecycler();
+    public void startCountryActivity(Country countryObject) {
         Intent intent = new Intent(this, CountryActivity.class);
         intent.putExtra("countryObject", countryObject);
         startActivity(intent);
     }
 
     public void downloadFailed() {
-        //officialList.clear();
         Toast.makeText(this, "Download failed!!", Toast.LENGTH_SHORT).show();
     }
 

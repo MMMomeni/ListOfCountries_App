@@ -12,20 +12,19 @@ import java.util.List;
 public class CountryAdapter extends RecyclerView.Adapter<MyViewHolder>  {
 
     private static final String TAG = "NoteAdapter";
-    private List<Country> countryList;
-    private MainActivity mainAct;
+    private final List<Country> countryList;
+    private final MainActivity mainAct;
 
     CountryAdapter(List<Country> ntList, MainActivity ma) {
         this.countryList = ntList;
         mainAct = ma;
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.country_list, parent, false);
+                .inflate(R.layout.recycler_box, parent, false);
 
         itemView.setOnClickListener(mainAct); // means that main activity owns the onClickListener
         itemView.setOnLongClickListener(mainAct);
